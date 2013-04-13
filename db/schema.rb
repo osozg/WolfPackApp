@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130413170053) do
+ActiveRecord::Schema.define(:version => 20130413203049) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
@@ -24,11 +24,14 @@ ActiveRecord::Schema.define(:version => 20130413170053) do
   end
 
   create_table "resources", :force => true do |t|
-    t.string   "name"
+    t.string   "category"
     t.text     "description"
     t.integer  "wolf_pack_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "url"
+    t.integer  "user_id"
+    t.integer  "votes"
   end
 
   create_table "users", :force => true do |t|

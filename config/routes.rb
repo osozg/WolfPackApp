@@ -20,6 +20,7 @@ WolfPackApp::Application.routes.draw do
     delete 'oust' => 'devise/registrations#destroy', :as => :destroy_user_registration
   end
 
+  root :to => "home#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -77,6 +78,4 @@ WolfPackApp::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   
-  match "/profile" => "devise::registrations#edit"
-  root :to => "home#index"
 end
