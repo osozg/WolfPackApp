@@ -7,7 +7,7 @@
     = csrf_meta_tags
     = yield :head
   %body
-    .container{style: "max-width: 740px;"}
+    .container
       .masthead
         %ul.nav.nav-pills.pull-right
           %li#nav1= link_to "Home", root_url
@@ -22,11 +22,9 @@
             - else
               = link_to "Login", new_user_session_path
         %h2= link_to "WOLF PACKS", root_url
-      %hr
       .notice.hide= notice
       .alert.hide= alert
       = yield
-      %hr
       .footer.center
         %p Developed @ <a href="http://learnerjourneydatajam.com/">Learner Journey Data Jam</a>, 12-14 Apr 2013, TechCube Edinburgh
   
