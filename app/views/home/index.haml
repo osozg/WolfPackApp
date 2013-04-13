@@ -5,9 +5,10 @@
     })
 
 .wolfpacks-container.clearfix
+  - colors = %w(#00B579 #F3152B #00924E #692F8C #0072B7 #D7DF4F #FB923A)
   - @wolf_packs.each do |wolf_pack|
     .wolfpack
-      %h3.wolfpack-tag= link_to wolf_pack.name, wolf_pack
+      %h3.wolfpack-tag{style: "background: #{colors.sample}"}= link_to wolf_pack.name, wolf_pack
 
 
 = link_to 'Create a new Wolf Pack', new_wolf_pack_path
