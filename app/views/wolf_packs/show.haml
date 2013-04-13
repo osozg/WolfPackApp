@@ -1,3 +1,17 @@
+:javascript
+  $(document).ready(function() {
+    $("div.resource").each(function(i, res_div) {
+      var children = res_div.children("div.video");
+      if (children.length > 0) {
+        children.click(function() {
+
+        });
+      }
+    });
+  });
+
+
+
 
 %p
   %b Name
@@ -14,3 +28,25 @@
   - else
     You are NOT a member of this Wolf Pack.
     = link_to "Join", join_wolf_pack_url(@wolf_pack)
+
+- @wolf_pack.resources.each do |resource|
+  .resource{id: "resource_#{resource.id}"}
+    - if resource.category == "question"
+      .question
+        %i.icon-question-sign
+        = resource.description
+      - resource.answers.each do |answer|
+        .answer
+          %i.icon-thumbs-up
+          = answer.description
+    - elsif resource.category == "external"
+      - og = OpenGraph.fetch(resource.url)
+      - if og && og["type"] == "video"
+        .video
+          %a{href: "#video_#{resource.id}", "data-toggle" => "modal"}
+            = resource.description
+            = image_tag og["image"] unless og["image"].blank?
+        .modal.hide{id: "video_#{resource.id}"}
+          %iframe{src: og["video"]}
+
+
