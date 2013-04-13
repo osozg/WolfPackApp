@@ -4,15 +4,10 @@
       $("li#nav1").addClass("active");
     })
 
-%table
-  %tr
-    %th Location
-    %th Name
+.wolfpacks-container.clearfix
   - @wolf_packs.each do |wolf_pack|
-    %tr
-      %td= wolf_pack.location
-      %td= link_to wolf_pack.name, wolf_pack
+    .wolfpack
+      %h3.wolfpack-tag= link_to wolf_pack.name, wolf_pack
 
-%br
 
 = link_to 'Create a new Wolf Pack', new_wolf_pack_path
