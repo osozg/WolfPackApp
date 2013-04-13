@@ -29,6 +29,26 @@
     You are NOT a member of this Wolf Pack.
     = link_to "Join", join_wolf_pack_url(@wolf_pack)
 
+%ul.nav.nav-tabs
+  %li.active= link_to "Ask", "#question-form", "data-toggle" => "tab"
+  %li= link_to "Feed", "#external-form", "data-toggle" => "tab"
+.tab-content
+  #question-form.tab-pane.active
+    = form_for Resource.new, url: add_resource_wolf_pack_url(@wolf_pack), method: :post do |f|
+      = f.hidden_field :category, value: "question"
+      = f.text_area :description, rows: 3, placeholder: "Description"
+      %br
+      = f.submit "Howl"
+  #external-form.tab-pane
+    = form_for Resource.new, url: add_resource_wolf_pack_url(@wolf_pack), method: :post do |f|
+      = f.hidden_field :category, value: "external"
+      = f.text_field :url, placeholder: "URL"
+      %br
+      = f.text_area :description, rows: 3, placeholder: "Description"
+      %br
+      = f.submit "Feed"
+
+
 - @wolf_pack.resources.each do |resource|
   .resource{id: "resource_#{resource.id}"}
     - if resource.category == "question"
@@ -48,5 +68,11 @@
             = image_tag og["image"] unless og["image"].blank?
         .modal.hide{id: "video_#{resource.id}"}
           %iframe{src: og["video"]}
+      - else
+        .unrecognized
+          %a{href: resource.url}
+            = resource.description
+            = image_tag og["image"] unless !og || og["image"].blank?
+
 
 
