@@ -1,4 +1,8 @@
-%h1 Listing wolf_packs
+- content_for :head do
+  :javascript
+    $(document).ready(function() {
+      $("li#nav1").addClass("active");
+    })
 
 %table
   %tr
