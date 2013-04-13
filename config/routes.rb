@@ -1,4 +1,10 @@
 WolfPackApp::Application.routes.draw do
+  resources :events
+
+
+  resources :wolf_packs
+
+
   devise_for :users
 
   # The priority is based upon order of creation:
@@ -58,5 +64,5 @@ WolfPackApp::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   
-  root :to => "home#index"
+  root :to => "wolf_packs#index"
 end

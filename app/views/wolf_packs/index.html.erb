@@ -1,0 +1,25 @@
+<h1>Listing wolf_packs</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @wolf_packs.each do |wolf_pack| %>
+  <tr>
+    <td><%= wolf_pack.name %></td>
+    <td><%= wolf_pack.location %></td>
+    <td><%= link_to 'Show', wolf_pack %></td>
+    <td><%= link_to 'Edit', edit_wolf_pack_path(wolf_pack) %></td>
+    <td><%= link_to 'Destroy', wolf_pack, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Wolf pack', new_wolf_pack_path %>
