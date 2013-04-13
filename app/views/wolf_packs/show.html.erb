@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <b>Name:</b>
@@ -10,6 +9,12 @@
   <%= @wolf_pack.location %>
 </p>
 
-
-<%= link_to 'Edit', edit_wolf_pack_path(@wolf_pack) %> |
-<%= link_to 'Back', wolf_packs_path %>
+<p>
+  <% if @wolf_pack.users.include? @user %>
+    You are a member of this Wolf Pack.
+    <%= link_to "Leave", leave_wolf_pack_url(@wolf_pack) %>
+  <% else %>
+    You are NOT a member of this Wolf Pack.
+    <%= link_to "Join", join_wolf_pack_url(@wolf_pack) %>
+  <% end %>
+</p>

@@ -1,5 +1,27 @@
 <h1>New wolf_pack</h1>
 
-<%= render 'form' %>
+<%= form_for(@wolf_pack) do |f| %>
+  <% if @wolf_pack.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wolf_pack.errors.count, "error") %> prohibited this wolf_pack from being saved:</h2>
 
-<%= link_to 'Back', wolf_packs_path %>
+      <ul>
+      <% @wolf_pack.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

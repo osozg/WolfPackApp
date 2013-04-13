@@ -7,6 +7,42 @@
     = csrf_meta_tags
     = yield :head
   %body
+    .container{style: "max-width: 740px;"}
+      .masthead
+        %ul.nav.nav-pills.pull-right
+          %li#nav1= link_to "Home", root_url
+          %li#nav2
+            - if user_signed_in?
+              = link_to "Profile", edit_user_registration_path
+            - else
+              = link_to "Register", new_user_registration_path
+          %li#nav3
+            - if user_signed_in?
+              = link_to "Logout", destroy_user_session_path, :method => :delete
+            - else
+              = link_to "Login", new_user_session_path
+        %h2= link_to "WOLF PACKS", root_url
+      %hr
+      .notice.hide= notice
+      .alert.hide= alert
+      = yield
+      %hr
+      .footer.center
+        %p Developed @ <a href="http://learnerjourneydatajam.com/">Learner Journey Data Jam</a>, 12-14 Apr 2013, TechCube Edinburgh
+  
+
+
+  -#
+    .jumbotron.center
+        %h1 Test 1
+        %p.lead Test 2
+        %a.btn.btn-large.btn-success Test 3
+      %hr
+      .row-fluid
+        .span6 Test 4
+        .span6 Test 5
+      %hr
+  -#
     .navbar.navbar-static-top
       .navbar-inner
         = link_to "WOLF PACKS", root_url, class: "brand"

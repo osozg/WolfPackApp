@@ -1,8 +1,13 @@
 WolfPackApp::Application.routes.draw do
-  resources :resources
-  resources :events
-  resources :wolf_packs
-
+  # resources :resources
+  # resources :events
+  resources :wolf_packs, only: [:new, :create, :show] do
+    resources :events
+    member do
+      get 'join'
+      get 'leave'
+    end
+  end
 
   devise_for :users, :skip => [:sessions, :registrations]
   as :user do
@@ -13,6 +18,7 @@ WolfPackApp::Application.routes.draw do
     post 'signup' => 'devise/registrations#create', :as => :user_registration
     get 'profile' => 'devise/registrations#edit', :as => :edit_user_registration
     put 'profile' => 'devise/registrations#update', :as => :user_registration
+    delete 'oust' => 'devise/registrations#destroy', :as => :destroy_user_registration
   end
 
   # The priority is based upon order of creation:

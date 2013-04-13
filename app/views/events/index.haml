@@ -1,0 +1,15 @@
+Events for #{@wolf_pack.title}
+
+%table
+  %tr
+    %th Name
+    %th Description
+
+  - @events.each do |event|
+    %tr
+      %td= event.name
+      %td= event.description
+
+<br />
+
+= link_to 'New Event', new_event_path(@wolf_pack)

@@ -1,5 +1,22 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :set_user
+
+  private
+  
+  # if user is logged in, return current_user, else return guest_user
+  def set_user
+    if current_user
+      if session[:guest_user_id]
+        logging_in
+        guest_user.destroy
+        session[:guest_user_id] = nil
+      end
+      @user = current_user
+    else
+      @user = guest_user
+    end
+  end
 
   # find guest_user object associated with the current session,
   # creating one as needed
@@ -11,8 +28,6 @@ class ApplicationController < ActionController::Base
     session[:guest_user_id] = nil
     guest_user
   end
-
-  private
 
   # called (once) when the user logs in, insert any code your application needs
   # to hand off from guest_user to current_user.

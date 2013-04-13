@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @wolf_pack.name %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @wolf_pack.location %>
+</p>
+
+
+<%= link_to 'Edit', edit_wolf_pack_path(@wolf_pack) %> |
+<%= link_to 'Back', wolf_packs_path %>
