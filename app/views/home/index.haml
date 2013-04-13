@@ -1,0 +1,20 @@
+%h1 Listing wolf_packs
+
+%table
+  %tr
+    %th Name
+    %th Location
+    %th
+    %th
+    %th
+  - @wolf_packs.each do |wolf_pack|
+    %tr
+      %td= wolf_pack.name
+      %td= wolf_pack.location
+      %td= link_to 'Show', wolf_pack
+      %td= link_to 'Edit', edit_wolf_pack_path(wolf_pack)
+      %td= link_to 'Destroy', wolf_pack, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Wolf pack', new_wolf_pack_path

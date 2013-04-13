@@ -11,11 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130413140340) do
+ActiveRecord::Schema.define(:version => 20130413142412) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description",  :limit => 255
+    t.integer  "wolf_pack_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.datetime "start"
+    t.datetime "end"
+  end
+
+  create_table "resources", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
     t.integer  "wolf_pack_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false

@@ -1,9 +1,7 @@
 WolfPackApp::Application.routes.draw do
+  resources :resources
   resources :events
-
-
   resources :wolf_packs
-
 
   devise_for :users
 
@@ -64,5 +62,5 @@ WolfPackApp::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   
-  root :to => "wolf_packs#index"
+  root :to => "home#index"
 end
