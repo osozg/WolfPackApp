@@ -1,11 +1,10 @@
 WolfPackApp::Application.routes.draw do
-  # resources :resources
-  # resources :events
   resources :wolf_packs, only: [:new, :create, :show] do
     resources :events
     member do
       get 'join'
       get 'leave'
+      post 'add_resource'
     end
   end
 

@@ -1,0 +1,16 @@
+
+%p
+  %b Name
+  = @wolf_pack.name
+
+%p
+  %b Location
+  = @wolf_pack.location
+
+%p
+  - if @wolf_pack.users.include? @user
+    You are a member of this Wolf Pack.
+    = link_to "Leave", leave_wolf_pack_url(@wolf_pack)
+  - else
+    You are NOT a member of this Wolf Pack.
+    = link_to "Join", join_wolf_pack_url(@wolf_pack)

@@ -27,6 +27,13 @@ class WolfPacksController < ApplicationController
     @wolf_pack = WolfPack.find(params[:id])
     @wolf_pack.users.delete @user
     redirect_to @wolf_pack
-  end    
+  end
+
+  def add_resource
+    @wolf_pack = WolfPack.find(params[:id])
+    params[:type]
+    redirect_to @wolf_pack
+  end
+
 
 end
