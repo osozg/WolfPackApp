@@ -1,18 +1,3 @@
-:javascript
-  $(document).ready(function() {
-    $("div.resource").each(function(i, res_div) {
-      var children = res_div.children("div.video");
-      if (children.length > 0) {
-        children.click(function() {
-
-        });
-      }
-    });
-  });
-
-
-
-
 %p
   %b Name
   = @wolf_pack.name
@@ -66,8 +51,8 @@
           %a{href: "#video_#{resource.id}", "data-toggle" => "modal"}
             = resource.description
             = image_tag og["image"] unless og["image"].blank?
-        .modal.hide{id: "video_#{resource.id}"}
-          %iframe{src: og["video"]}
+        .modal.hide{id: "video_#{resource.id}", style: "width: 600px; height: 400px;"}
+          %iframe{src: og["video"], style: "width: 600px; height: 400px;"}
       - else
         .unrecognized
           %a{href: resource.url}
