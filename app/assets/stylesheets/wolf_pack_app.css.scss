@@ -49,6 +49,12 @@ hr {
   width:40%;
   margin-top: 50px;
   overflow:none;
+  .tab-content {
+    .tab-pane {
+      padding-top: 24px;
+    }
+  }
+  .nav-tabs { margin: 1em auto -1em; display: table;}
 }
 
 .howl, .event{
@@ -96,7 +102,5 @@ hr {
   padding:10px 10px 10px 30px;
   margin:3px 0;
 }
-
-
 
 

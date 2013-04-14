@@ -9,22 +9,15 @@
       $("input#event_end_time").timepicker();
     });
 
-
-%p
-  %b Name
-  = @wolf_pack.name
-
-%p
-  %b Location
-  = @wolf_pack.location
-
-%p
-  - if @wolf_pack.users.include? @user
-    You are a member of this Wolf Pack.
-    = link_to "Leave", leave_wolf_pack_url(@wolf_pack)
-  - else
-    You are NOT a member of this Wolf Pack.
-    = link_to "Join", join_wolf_pack_url(@wolf_pack)
+.row-fluid
+  .span6
+    %h2{style: "float: left;"}= @wolf_pack.name
+    %h3{style: "float: left; padding: 3px 0 0 6px;"}= @wolf_pack.location
+  .span6
+    - if @wolf_pack.users.include? @user
+      = link_to "Leave", leave_wolf_pack_url(@wolf_pack), class: "btn btn-danger"
+    - else
+      = link_to "Join", join_wolf_pack_url(@wolf_pack), class: "btn btn-large btn-primary"
 .feed-container
   %ul.nav.nav-tabs
     %li.active= link_to "Howl", "#question-form", "data-toggle" => "tab"
@@ -37,7 +30,7 @@
         = f.hidden_field :user_id, value: @user.id
         = f.text_area :description, rows: 3, placeholder: "Ask anything!", style: "width: 430px;"
         %br
-        = f.submit "Howl"
+        = f.submit "Howl", class: "btn btn-info"
     #external-form.tab-pane
       = form_for Resource.new, url: add_resource_wolf_pack_url(@wolf_pack), method: :post do |f|
         = f.hidden_field :category, value: "external"
@@ -46,20 +39,19 @@
         %br
         = f.text_area :description, rows: 3, placeholder: "Description", style: "width: 430px;"
         %br
-        = f.submit "Feed"
+        = f.submit "Feed", class: "btn btn-info"
     #event-form.tab-pane
       = form_for Event.new, url: add_event_wolf_pack_url(@wolf_pack), method: :post do |f|
         = f.hidden_field :user_id, value: @user.id
-        = f.text_field :name, placeholder: "Name"
+        = f.text_field :name, placeholder: "Name", style: "width: 430px;"
         %br
-        = f.text_area :description, rows: 3, placeholder: "Description"
+        = f.text_area :description, rows: 3, placeholder: "Description", style: "width: 430px;"
         %br
         = f.text_field :date, placeholder: "Date"
-        %br
         = f.text_field :start_time, placeholder: "Start", style: "width: 94px"
         = f.text_field :end_time, placeholder: "End", style: "width: 94px"
         %br
-        = f.submit "Meet"
+        = f.submit "Meet", class: "btn btn-info"
 
   
     - @wolf_pack.resources.each do |resource|

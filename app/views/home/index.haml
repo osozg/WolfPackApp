@@ -5,10 +5,13 @@
     })
 
 .wolfpacks-container.clearfix
+  .row-fluid
+    .span8
+      %h3 Explore the Wilderness
+    .span4
+      = link_to 'Create Pack', new_wolf_pack_path, class: "btn btn-large btn-success", style: "float: right;"
+
   - colors = %w(#00B579 #F3152B #00924E #692F8C #0072B7 #D7DF4F #FB923A)
   - @wolf_packs.each do |wolf_pack|
     .wolfpack
       %h3.wolfpack-tag{style: "background: #{colors.sample}"}= link_to wolf_pack.name, wolf_pack
-
-
-= link_to 'Create a new Wolf Pack', new_wolf_pack_path

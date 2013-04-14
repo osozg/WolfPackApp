@@ -12,7 +12,7 @@
 
 <p>
   <b>Wolf pack:</b>
-  <%= @event.wolf_pack_id %>
+  <%= link_to @event.wolf_pack.title, @event.wolf_pack %>
 </p>
 
 <p>
@@ -29,7 +29,3 @@
   <b>End time:</b>
   <%= @event.end_time %>
 </p>
-
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
