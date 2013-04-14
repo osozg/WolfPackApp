@@ -5,10 +5,17 @@ WolfPackApp::Application.routes.draw do
       get 'join'
       get 'leave'
       post 'add_resource'
+      # put 'upvote_resource'
+      # put 'downvote_resource'
+      post 'add_answer'
+      put 'upvote_answer'
+      put 'downvote_answer'
+      post 'add_event'
     end
   end
+  resources :events, only: [:show]
 
-  devise_for :users, :skip => [:sessions, :registrations]
+  devise_for :users, skip: [:sessions, :registrations]
   as :user do
     get 'login' => 'devise/sessions#new', :as => :new_user_session
     post 'login' => 'devise/sessions#create', :as => :user_session

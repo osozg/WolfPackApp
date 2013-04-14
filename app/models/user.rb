@@ -10,4 +10,6 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_and_belongs_to_many :wolf_packs
+  has_many :resources
+  has_many :answers
 end

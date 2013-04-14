@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130413203049) do
+ActiveRecord::Schema.define(:version => 20130414004626) do
+
+  create_table "answers", :force => true do |t|
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "resource_id"
+    t.integer  "votes"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "events", :force => true do |t|
     t.string   "name"
@@ -19,8 +28,10 @@ ActiveRecord::Schema.define(:version => 20130413203049) do
     t.integer  "wolf_pack_id"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
-    t.datetime "start"
-    t.datetime "end"
+    t.integer  "user_id"
+    t.date     "date"
+    t.string   "start_time"
+    t.string   "end_time"
   end
 
   create_table "resources", :force => true do |t|

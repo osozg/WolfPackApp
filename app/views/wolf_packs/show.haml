@@ -1,3 +1,14 @@
+- content_for :head do
+  :javascript
+    $(document).ready(function() {
+      $("input#event_date").datepicker({
+        dateFormat: $.datepicker.ISO_8601, 
+        minDate: "#{Date.today}"
+      });
+      $("input#event_start_time").timepicker();
+    });
+
+
 %p
   %b Name
   = @wolf_pack.name
@@ -15,8 +26,9 @@
     = link_to "Join", join_wolf_pack_url(@wolf_pack)
 
 %ul.nav.nav-tabs
-  %li.active= link_to "Ask", "#question-form", "data-toggle" => "tab"
+  %li.active= link_to "Howl", "#question-form", "data-toggle" => "tab"
   %li= link_to "Feed", "#external-form", "data-toggle" => "tab"
+  %li= link_to "Meet", "#event-form", "data-toggle" => "tab"
 .tab-content
   #question-form.tab-pane.active
     = form_for Resource.new, url: add_resource_wolf_pack_url(@wolf_pack), method: :post do |f|
@@ -34,6 +46,19 @@
       = f.text_area :description, rows: 3, placeholder: "Description"
       %br
       = f.submit "Feed"
+  #event-form.tab-pane
+    = form_for Event.new, url: add_event_wolf_pack_url(@wolf_pack), method: :post do |f|
+      = f.hidden_field :user_id, value: @user.id
+      = f.text_field :name, placeholder: "Name"
+      %br
+      = f.text_area :description, rows: 3, placeholder: "Description"
+      %br
+      = f.text_field :date, placeholder: "Date"
+      %br
+      = f.text_field :start_time, placeholder: "Start", style: "width: 94px"
+      = f.text_field :end_time, placeholder: "End", style: "width: 94px"
+      %br
+      = f.submit "Meet"
 
 
 - @wolf_pack.resources.each do |resource|
@@ -44,8 +69,21 @@
         = resource.description
       - resource.answers.each do |answer|
         .answer
-          %i.icon-thumbs-up
+          = link_to uvi, upvote_answer_wolf_pack_url(@wolf_pack, answer_id: answer.id), method: :put, remote: true
+          %span{id: "answer_#{answer.id}_votes"}= answer.votes
+          = link_to dvi, downvote_answer_wolf_pack_url(@wolf_pack, answer_id: answer.id), method: :put, remote: true
           = answer.description
+      .answer-form
+        = form_for Answer.new, url: add_answer_wolf_pack_url(@wolf_pack) do |f|
+          = f.hidden_field :resource_id, value: resource.id
+          = f.hidden_field :user_id, value: @user.id
+          = f.text_area :description, rows: 2, placeholder: "Reply"
+          %br
+          = f.submit "Heal"
+    - elsif resource.category == "event"
+      .event
+        %a{href: event_url(resource.url)}
+          %h3= resource.description
     - elsif resource.category == "external"
       - og = OpenGraph.fetch(resource.url)
       - if og && og["type"] == "video"

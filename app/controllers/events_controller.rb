@@ -1,15 +1,15 @@
 class EventsController < ApplicationController
   def index
-    @wolf_pack = WolfPack.find(params[:wolf_pack_id])
-    @events = @wolf_pack.events
+    # @wolf_pack = WolfPack.find(params[:wolf_pack_id])
+    # @events = @wolf_pack.events
   end
 
   def show
-    @wolf_pack = WolfPack.find(params[:wolf_pack_id])
+    # @wolf_pack = WolfPack.find(params[:wolf_pack_id])
     @event = Event.find(params[:id])
-    if @event.wolf_pack != @wolf_pack
-      redirect_to events_url(@wolf_pack)
-    end
+    # if @event.wolf_pack != @wolf_pack
+    #   redirect_to events_url(@wolf_pack)
+    # end
   end
 
   def new

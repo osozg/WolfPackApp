@@ -3,9 +3,13 @@ class Resource < ActiveRecord::Base
   default_scope order('created_at DESC')
 
   belongs_to :wolf_pack
-  # has_many :answers
+  has_many :answers
 
-  def answers
-    []
+  before_save :default_values
+
+  private
+
+  def default_values
+    self.votes ||= 0
   end
 end
