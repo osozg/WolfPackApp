@@ -21,7 +21,9 @@
               = link_to "Logout", destroy_user_session_path, :method => :delete
             - else
               = link_to "Login", new_user_session_path
-        %h2= link_to "WOLF PACKS", root_url
+        %h2
+          %a{href: root_url}
+            = image_tag "logo.png"
       .notice.hide= notice
       .alert.hide= alert
       = yield

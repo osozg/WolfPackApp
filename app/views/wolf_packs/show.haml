@@ -12,7 +12,7 @@
 .row-fluid
   .span6
     %h2{style: "float: left;"}= @wolf_pack.name
-    %h3{style: "float: left; padding: 3px 0 0 6px;"}= @wolf_pack.location
+    %h3{style: "float: left; padding: 3px 0 0 6px; color: #999"}= @wolf_pack.location
   .span6
     - if @wolf_pack.users.include? @user
       = link_to "Leave", leave_wolf_pack_url(@wolf_pack), class: "btn btn-danger"

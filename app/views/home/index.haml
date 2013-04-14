@@ -4,10 +4,21 @@
       $("li#nav1").addClass("active");
     })
 
+.hero-unit{style: "padding: 20px; overflow-x: visible; width: 100%; left: -20px; position: relative;"}
+  .row-fluid
+    .span6
+      %h3 Locate Your Pack
+      = form_tag "/", class: "form-search", style: "margin-top: 60px;" do
+        = text_field_tag "Search", nil, class: "input-large", style: "height: 36px; font-size: 32px;"
+        = submit_tag "Search", class: "btn btn-large btn-info"
+    .span6{style: "height: 404px;"}
+      = image_tag "wolfPaw.png", style: "overflow-y: visible; top: -20px; position: relative;"
+
+
 .wolfpacks-container.clearfix
   .row-fluid
     .span8
-      %h3 Explore the Wilderness
+      %h3{style: "padding-left: 10px;"} Explore the Wilderness
     .span4
       = link_to 'Create Pack', new_wolf_pack_path, class: "btn btn-large btn-success", style: "float: right;"
 
