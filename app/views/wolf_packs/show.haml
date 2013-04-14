@@ -25,80 +25,83 @@
   - else
     You are NOT a member of this Wolf Pack.
     = link_to "Join", join_wolf_pack_url(@wolf_pack)
+.feed-container
+  %ul.nav.nav-tabs
+    %li.active= link_to "Howl", "#question-form", "data-toggle" => "tab"
+    %li= link_to "Feed", "#external-form", "data-toggle" => "tab"
+    %li= link_to "Meet", "#event-form", "data-toggle" => "tab"
+  .tab-content
+    #question-form.tab-pane.active
+      = form_for Resource.new, url: add_resource_wolf_pack_url(@wolf_pack), method: :post do |f|
+        = f.hidden_field :category, value: "question"
+        = f.hidden_field :user_id, value: @user.id
+        = f.text_area :description, rows: 3, placeholder: "Ask anything!", style: "width: 430px;"
+        %br
+        = f.submit "Howl"
+    #external-form.tab-pane
+      = form_for Resource.new, url: add_resource_wolf_pack_url(@wolf_pack), method: :post do |f|
+        = f.hidden_field :category, value: "external"
+        = f.hidden_field :user_id, value: @user.id
+        = f.text_field :url, placeholder: "Resource URL", style: "width: 430px;"
+        %br
+        = f.text_area :description, rows: 3, placeholder: "Description", style: "width: 430px;"
+        %br
+        = f.submit "Feed"
+    #event-form.tab-pane
+      = form_for Event.new, url: add_event_wolf_pack_url(@wolf_pack), method: :post do |f|
+        = f.hidden_field :user_id, value: @user.id
+        = f.text_field :name, placeholder: "Name"
+        %br
+        = f.text_area :description, rows: 3, placeholder: "Description"
+        %br
+        = f.text_field :date, placeholder: "Date"
+        %br
+        = f.text_field :start_time, placeholder: "Start", style: "width: 94px"
+        = f.text_field :end_time, placeholder: "End", style: "width: 94px"
+        %br
+        = f.submit "Meet"
 
-%ul.nav.nav-tabs
-  %li.active= link_to "Howl", "#question-form", "data-toggle" => "tab"
-  %li= link_to "Feed", "#external-form", "data-toggle" => "tab"
-  %li= link_to "Meet", "#event-form", "data-toggle" => "tab"
-.tab-content
-  #question-form.tab-pane.active
-    = form_for Resource.new, url: add_resource_wolf_pack_url(@wolf_pack), method: :post do |f|
-      = f.hidden_field :category, value: "question"
-      = f.hidden_field :user_id, value: @user.id
-      = f.text_area :description, rows: 3, placeholder: "Description"
-      %br
-      = f.submit "Howl"
-  #external-form.tab-pane
-    = form_for Resource.new, url: add_resource_wolf_pack_url(@wolf_pack), method: :post do |f|
-      = f.hidden_field :category, value: "external"
-      = f.hidden_field :user_id, value: @user.id
-      = f.text_field :url, placeholder: "URL"
-      %br
-      = f.text_area :description, rows: 3, placeholder: "Description"
-      %br
-      = f.submit "Feed"
-  #event-form.tab-pane
-    = form_for Event.new, url: add_event_wolf_pack_url(@wolf_pack), method: :post do |f|
-      = f.hidden_field :user_id, value: @user.id
-      = f.text_field :name, placeholder: "Name"
-      %br
-      = f.text_area :description, rows: 3, placeholder: "Description"
-      %br
-      = f.text_field :date, placeholder: "Date"
-      %br
-      = f.text_field :start_time, placeholder: "Start", style: "width: 94px"
-      = f.text_field :end_time, placeholder: "End", style: "width: 94px"
-      %br
-      = f.submit "Meet"
-
-
-- @wolf_pack.resources.each do |resource|
-  .resource{id: "resource_#{resource.id}"}
-    - if resource.category == "question"
-      .question
-        %i.icon-question-sign
-        = resource.description
-      - resource.answers.each do |answer|
-        .answer
-          = link_to uvi, upvote_answer_wolf_pack_url(@wolf_pack, answer_id: answer.id), method: :put, remote: true
-          %span{id: "answer_#{answer.id}_votes"}= answer.votes
-          = link_to dvi, downvote_answer_wolf_pack_url(@wolf_pack, answer_id: answer.id), method: :put, remote: true
-          = answer.description
-      .answer-form
-        = form_for Answer.new, url: add_answer_wolf_pack_url(@wolf_pack) do |f|
-          = f.hidden_field :resource_id, value: resource.id
-          = f.hidden_field :user_id, value: @user.id
-          = f.text_area :description, rows: 2, placeholder: "Reply"
-          %br
-          = f.submit "Heal"
-    - elsif resource.category == "event"
-      .event
-        %a{href: event_url(resource.url)}
-          %h3= resource.description
-    - elsif resource.category == "external"
-      - og = OpenGraph.fetch(resource.url)
-      - if og && og["type"] == "video"
-        .video
-          %a{href: "#video_#{resource.id}", "data-toggle" => "modal"}
-            = resource.description
-            = image_tag og["image"] unless og["image"].blank?
-        .modal.hide{id: "video_#{resource.id}", style: "width: 600px; height: 400px;"}
-          %iframe{src: og["video"], style: "width: 600px; height: 400px;"}
-      - else
-        .unrecognized
-          %a{href: resource.url}
-            = resource.description
-            = image_tag og["image"] unless !og || og["image"].blank?
+  
+    - @wolf_pack.resources.each do |resource|
+      .resource{id: "resource_#{resource.id}"}
+        - if resource.category == "question"
+          .howl
+            .question
+              %i.icon-question-sign
+              = resource.description
+            - resource.answers.each do |answer|
+              .answer
+                = link_to uvi, upvote_answer_wolf_pack_url(@wolf_pack, answer_id: answer.id), method: :put, remote: true
+                %span{id: "answer_#{answer.id}_votes"}= answer.votes
+                = link_to dvi, downvote_answer_wolf_pack_url(@wolf_pack, answer_id: answer.id), method: :put, remote: true
+              
+                = answer.description
+            .answer-form
+              = form_for Answer.new, url: add_answer_wolf_pack_url(@wolf_pack) do |f|
+                = f.hidden_field :resource_id, value: resource.id
+                = f.hidden_field :user_id, value: @user.id
+                = f.text_area :description, rows: 2, placeholder: "Reply", style: "width:380px;"
+                = f.submit "Post", style: "width:40px;"
+        - elsif resource.category == "event"
+          .event
+            %a{href: event_url(resource.url)}
+              %h3= resource.description
+        - elsif resource.category == "external"
+          - og = OpenGraph.fetch(resource.url)
+          - if og && og["type"] == "video"
+            .video
+              %h3.video-discription  
+                = resource.description
+              .video-image
+                %a{href: "#video_#{resource.id}", "data-toggle" => "modal"}
+                  = image_tag og["image"] unless og["image"].blank?
+            .modal.hide{id: "video_#{resource.id}", style: "width: 600px; height: 400px;"}
+              %iframe{src: og["video"], style: "width: 600px; height: 400px;"}
+          - else
+            .unrecognized
+              %a{href: resource.url}
+                = resource.description
+                = image_tag og["image"] unless !og || og["image"].blank?
 
 
 

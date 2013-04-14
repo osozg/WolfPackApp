@@ -45,5 +45,58 @@ hr {
   text-decoration:none;
 }
 
+.feed-container{
+  width:40%;
+  margin-top: 50px;
+  overflow:none;
+}
+
+.howl, .event{
+  margin:30px 0;
+}
+
+.question{
+  background:green;
+}
+
+.video{
+  background:white;
+}
+
+.video-image{
+  background:black;
+  padding:20px;
+}
+
+.video-discription{
+  padding:10px 20px;
+  margin:3px 0;
+}
+
+.event{
+  background:yellow;
+}
+
+.video-discription{
+  display:block;
+  background:#ccc;
+}
+
+.question{
+  display:block;
+  padding:10px;
+  margin:3px 0;
+  font-size:18px;
+}
+
+
+.answer{
+  display:block;
+  background:#ccc;
+  padding:10px 10px 10px 30px;
+  margin:3px 0;
+}
+
+
 
 
