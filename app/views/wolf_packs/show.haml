@@ -73,11 +73,13 @@
                 = f.hidden_field :resource_id, value: resource.id
                 = f.hidden_field :user_id, value: @user.id
                 = f.text_area :description, rows: 2, placeholder: "Reply", style: "width:380px;"
-                = f.submit "Post", style: "width:40px;"
+                = f.submit "Post", class: "btn btn-info"
         - elsif resource.category == "event"
           .event
-            %a{href: event_url(resource.url)}
-              %h3= resource.description
+            %a.clearfix{href: event_url(resource.url)}
+              %h3{style: "float: left;"}= resource.description
+              %div{style: "float: left; padding: 22px 0 0 6px;"}= Event.find(resource.url).date.strftime("%d %B %Y")
+            = Event.find(resource.url).description
         - elsif resource.category == "external"
           - og = OpenGraph.fetch(resource.url)
           - if og && og["type"] == "video"
@@ -92,7 +94,7 @@
           - else
             .unrecognized
               %a{href: resource.url}
-                = resource.description
+                %h4= resource.description
                 = image_tag og["image"] unless !og || og["image"].blank?
 
 
